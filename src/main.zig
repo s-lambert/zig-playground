@@ -16,10 +16,12 @@ pub fn main() !void {
 
     try bw.flush(); // don't forget to flush!
 
-    var line_buf: [20]u8 = undefined;
+    // var line_buf: [20]u8 = undefined;
+    // _ = try std.io.getStdIn().read(&line_buf
 
-    _ = try std.io.getStdIn().read(&line_buf);
-    try stdout.print("\x1b[A", .{});
+    std.time.sleep(0.5 * std.time.ns_per_s);
+
+    // Repeating this only lets you delete up to where you started at in the terminal.
     try stdout.print("\x1b[A", .{});
     try stdout.print("Replaced line.\n", .{});
 
