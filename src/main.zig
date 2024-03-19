@@ -21,11 +21,31 @@ pub fn main() !void {
 
     std.time.sleep(0.5 * std.time.ns_per_s);
 
-    // Repeating this only lets you delete up to where you started at in the terminal.
-    try stdout.print("\x1b[A", .{});
-    try stdout.print("Replaced line.\n", .{});
+    try stdout.print("{d}\n", .{1});
+    try stdout.print("{d}\n", .{1});
+    try stdout.print("{d}\n", .{1});
+    try stdout.print("{d}\n", .{1});
+    try stdout.print("{d}\n", .{1});
 
     try bw.flush();
+
+    std.time.sleep(0.5 * std.time.ns_per_s);
+    const clearChars = "\x1b[A" ** 5;
+    try stdout.print(clearChars, .{});
+
+    try bw.flush();
+
+    std.time.sleep(0.5 * std.time.ns_per_s);
+    try stdout.print("{d}\n", .{2});
+    try stdout.print("{d}\n", .{2});
+    try stdout.print("{d}\n", .{2});
+    try stdout.print("{d}\n", .{2});
+    try stdout.print("{d}\n", .{2});
+
+    try bw.flush();
+
+    std.time.sleep(0.5 * std.time.ns_per_s);
+    try stdout.print(clearChars, .{});
 }
 
 test "simple test" {
