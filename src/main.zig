@@ -152,3 +152,23 @@ test "simple test" {
     try list.append(42);
     try std.testing.expectEqual(@as(i32, 42), list.pop());
 }
+
+fn check_duplicates(items: []i8) !i8 {
+    var number_of_duplicates: i8 = 0;
+    for (items) |*value| {
+        const abs_value = std.math.absCast(value.*) - 1;
+        if (items[abs_value] < 0) {
+            number_of_duplicates += 1;
+        } else {
+            items[abs_value] *= -1;
+        }
+    }
+    return number_of_duplicates;
+}
+
+test "check duplicates" {
+    var with_dupes = [_]i8{ 1, 2, 2, 4, 4 };
+    const number_of_duplicates = try check_duplicates(&with_dupes);
+    std.log.warn("{any}", .{with_dupes});
+    std.log.warn("{d}", .{number_of_duplicates});
+}
